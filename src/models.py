@@ -1,6 +1,6 @@
 import tensorflow as tf
-from tensorflow.keras.layers import Conv1D, Bidirectional, MaxPooling1D, Flatten, Embedding,\
-      LSTM, Dense, Dropout, GlobalMaxPool1D, GRU, SimpleRNN, Dropout, BatchNormalization
+from tensorflow.keras.layers import Conv1D, MaxPooling1D, Flatten, Embedding,\
+      LSTM, Dense, Dropout, GRU, Dropout, BatchNormalization
 from tensorflow.keras import Sequential
 
 class EarlyStopping(tf.keras.callbacks.Callback):
@@ -65,4 +65,11 @@ def LSTM_CNN_model(vocab_size, maxlen, dense_units=1, activation='softmax'):
     model.add(Flatten())
     model.add(Dense(128, activation='relu'))
     model.add(Dense(dense_units, activation=activation))
+    return model
+
+def GRU_model(vocab_size, maxlen, activation='softmax'):
+    model = Sequential()
+    model.add(Embedding(input_dim = vocab_size, output_dim=256, input_length=maxlen))
+    model.add(GRU(units=128))
+    model.add(Dense(1, activation=activation))
     return model
