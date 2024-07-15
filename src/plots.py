@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
+import pandas as pd
 
 def print_table_from_classification_report(title, report):
     print('\033[94m' + title+ '\x1b[0m')
@@ -31,11 +32,11 @@ def print_confusion_matrix(y_test, y_pred, title:str = None):
     plt.subplots_adjust(hspace=0.3)
     plt.show();
 
-def plot_spam_vs_ham(label_values_counts):
+def plot_spam_vs_ham(label_values_counts: pd.Series):
     '''
     Function to plot the distribution of spam vs ham
     Parameters:
-        label_col: pd.Series, labels
+        label_values_counts: pd.Series, labels
     '''
     _, ax = plt.subplots(figsize=(7, 5))
     spam_emails = label_values_counts.iloc[1]
