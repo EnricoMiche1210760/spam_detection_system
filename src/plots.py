@@ -2,12 +2,20 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.metrics import confusion_matrix
 import pandas as pd
+import numpy as np
 from wordcloud import WordCloud
 import plotly.express as px
 import plotly.colors as pc
 import plotly.graph_objects as go
 
 def print_table_from_classification_report(title, report):
+    '''
+    Function to print the classification report
+    Parameters:
+        title: string, title of the report
+        report: string, classification report
+    '''
+
     print('\033[94m' + title+ '\x1b[0m')
     print('\033[1m' + '\t\tprecision    recall  f1-score   support'+ '\033[0m')
     for line in report.split('\n')[2:-5]:
@@ -45,7 +53,7 @@ def plot_spam_vs_ham(label_values_counts: pd.Series):
     _, ax = plt.subplots(figsize=(7, 5))
     spam_emails = label_values_counts.iloc[1]
     ham_emails = label_values_counts.iloc[0]
-    sns.barplot([ham_emails, spam_emails],palette={'palegreen', 'indianred'})
+    sns.barplot(x=['Ham', 'Spam'], hue=['Ham', 'Spam'], y=[ham_emails, spam_emails], ax=ax, palette=['palegreen', 'indianred'])
     ax.set_ylabel('Number of emails')
     ax.set_xlabel('Type of email')
     ax.set_xticks([0, 1], ['Ham', 'Spam'])
@@ -67,8 +75,17 @@ def show_wordcloud(text, title:str = None):
     plt.title(title)
     plt.show();
 
-def plot_scatter_3D(X, L, y_kmeans, centers, point_size = 5):
-    colors = pc.qualitative.Plotly
+def plot_scatter_3D(X:pd.DataFrame, L:list, y_kmeans:np.array, centers:np.array, point_size = 5):
+    '''
+    Function to plot the 3D scatter plot
+    Parameters:
+        X: pd.DataFrame, data
+        L: list, labels
+        y_kmeans: np.array, kmeans labels
+        centers: np.array, kmeans centers
+        point_size: int, size of the points
+    '''
+    #colors = pc.qualitative.Plotly
     vfunc = np.vectorize(lambda x: L[x])
     grf_color = vfunc(y_kmeans)
     X['point_size'] = point_size
