@@ -30,3 +30,20 @@ def print_confusion_matrix(y_test, y_pred, title:str = None):
 
     plt.subplots_adjust(hspace=0.3)
     plt.show();
+
+def plot_spam_vs_ham(label_values_counts):
+    '''
+    Function to plot the distribution of spam vs ham
+    Parameters:
+        label_col: pd.Series, labels
+    '''
+    _, ax = plt.subplots(figsize=(7, 5))
+    spam_emails = label_values_counts.iloc[1]
+    ham_emails = label_values_counts.iloc[0]
+    sns.barplot([ham_emails, spam_emails],palette={'palegreen', 'indianred'})
+    ax.set_ylabel('Number of emails')
+    ax.set_xlabel('Type of email')
+    ax.set_xticks([0, 1], ['Ham', 'Spam'])
+    ax.spines[['top', 'right']].set_visible(False)
+    ax.set_title('Spam vs Ham distribution')
+    plt.show();
