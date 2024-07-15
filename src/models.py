@@ -40,9 +40,7 @@ class F1Score(tf.keras.metrics.Metric):
         self.precision.reset_states()
         self.recall.reset_states()
 
-
-
-@tf.keras.saving.register_keras_serializable()#senza specificare un paramentro, sovvrascrive loss
+@tf.keras.saving.register_keras_serializable()
 def weighted_binary_crossentropy(w0, w1):
     def loss(y_true, y_pred):
         y_true = tf.cast(y_true, tf.float32)
