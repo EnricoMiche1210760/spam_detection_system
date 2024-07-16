@@ -69,7 +69,7 @@ def show_wordcloud(text, title:str = None):
     '''
     wc = WordCloud(background_color="white")
     wordcloud = wc.generate(text)
-    plt.figure(figsize=(10, 10))
+    plt.figure(figsize=(10, 8))
     plt.imshow(wordcloud, interpolation='bilinear')
     plt.axis("off")
     plt.title(title)
