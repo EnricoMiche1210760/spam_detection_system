@@ -1,2 +1,4 @@
 venv/*
 src/__pycache__/
+models/gru_model.keras
+models/reinforced_lstm.keras
